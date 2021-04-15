@@ -24,55 +24,46 @@ def tasks(request):
 
 
 
+@api_view(['GET'])
 @csrf_exempt
 def task(request, task_id):
     task = Task.objects.get(id=task_id)
-    if request.method == "DELETE":
-        task.delete()
-        # return HttpResponse(status=200)
-
-    if request.method == "PUT":
-        data = json.loads(request.body)
-        task.reminder = data.get("reminder", "")
-        task.save()
-        # return HttpResponse(status=204)
-
-
-    return JsonResponse([task.serialize()], safe=False)
+    serializer = TaskSerializer(task, many=False)
+    return Response(serializer.data)
 
 
 
+@api_view(['DELETE'])
+@csrf_exempt
+def delete_task(request, task_id):
+    task = Task.objects.get(id=task_id)
+    task.delete()
+    return HttpResponse(status=200)
+
+
+
+@api_view(['PUT'])
+@csrf_exempt
+def task_reminder(request, task_id):
+    task = Task.objects.get(id=task_id)
+    task.reminder = not task.reminder
+    task.save()
+    return HttpResponse(status=204)
+
+
+
+@api_view(['POST'])
 @csrf_exempt
 def new_task(request):
-    if request.method != "POST":
-        return JsonResponse({"error": "POST request required"}, status=400)
-
-    data = json.loads(request.body)
-    text = data.get("text", "")
-    day = data.get("day", "")
-    reminder = data.get("reminder", "")
+    data = request.data
+    
+    text = data['text']
+    day = data['day']
+    reminder = data['reminder']
 
     Task(text=text, day=day, reminder=reminder).save()
     return JsonResponse({"message": "Task was added successfully"}, status=201)
 
 
-# @csrf_exempt
-# def reminder(request, task_id):
-#     if request.method != "PUT":
-#         return JsonResponse({"error": "PUT request required"}, status=400)
-    
-#     task = Task.objects.get(id=task_id)
-#     data = json.loads(request.body)
-#     task.reminder = data.get("reminder", "")
-#     task.save()
-#     return HttpResponse(status=204)
 
 
-# @csrf_exempt
-# def delete(request, task_id):
-#     if request.method != "DELETE":
-#         return JsonResponse({"error": "DELETE request required"}, status=400)
-
-#     task = Task.objects.get(id=task_id)
-#     task.delete()
-#     return HttpResponse(status=200)
