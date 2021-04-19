@@ -12,7 +12,4 @@ urlpatterns = [
 
     path("tasks/<str:task_id>", views.task, name="task"),
 
-    
-
-    
 ]
