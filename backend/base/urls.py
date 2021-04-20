@@ -1,7 +1,13 @@
 from django.urls import path
 from . import views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+)
 
 urlpatterns = [
+    path('tasks/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+
+
     path("", views.index, name="index"),
     path("tasks", views.tasks, name="tasks"),
 

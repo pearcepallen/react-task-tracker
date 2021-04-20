@@ -53,8 +53,8 @@ def task_reminder(request, task_id):
 
 
 
-@api_view(['POST'])
 @csrf_exempt
+@api_view(['POST'])
 def new_task(request):
     data = request.data
     

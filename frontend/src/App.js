@@ -8,7 +8,7 @@ import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
 import About from './components/About'
 import Loader from './components/Loader'
-import { listTasks } from './actions/taskActions'
+import { listTasks, createTask } from './actions/taskActions'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -84,6 +84,11 @@ const App = () => {
     // const newTask = { id, ...task }
     // setTasks([...tasks, newTask])
   }*/
+  const addTask = (task) => {
+    dispatch(createTask(task))  
+    
+    dispatch(listTasks())//may be a better way to refresh 
+  }
 
   // Delete Task
   /*const deleteTask = async (id) => {
@@ -100,7 +105,7 @@ const App = () => {
         <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}/>
         <Route path='/' exact render={(props) => (
           <>
-            {/* {showAddTask && <AddTask onAdd={addTask}/>} */}
+            {showAddTask && <AddTask onAdd={addTask}/>}
             {/* {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No Tasks Available'} */}
             {loading ? <Loader /> : <Tasks tasks={tasks} /> }
           </>
