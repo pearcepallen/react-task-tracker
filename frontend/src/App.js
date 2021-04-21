@@ -9,7 +9,7 @@ import AddTask from './components/AddTask'
 import About from './components/About'
 import Login from './components/Login'
 import Loader from './components/Loader'
-import { listTasks, createTask, taskDelete } from './actions/taskActions'
+import { listTasks, createTask, taskDelete, taskToggle } from './actions/taskActions'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -70,6 +70,11 @@ const App = () => {
     task.id === id ? { ...task, reminder: 
       data.reminder } : task))
   }*/
+  const toggleReminder = (id) => {
+    dispatch(taskToggle(id))  
+    
+    // dispatch(listTasks())
+  }
 
   // Add Task
   /*const addTask = async (task) => {
@@ -99,6 +104,7 @@ const App = () => {
 
     setTasks(tasks.filter((task) => task.id !== id))
   }*/
+  
   const deleteTask = (id) => {
     dispatch(taskDelete(id))  
     
@@ -113,7 +119,7 @@ const App = () => {
           <>
             {showAddTask && <AddTask onAdd={addTask}/>}
             {/* {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No Tasks Available'} */}
-            {loading ? <Loader /> : <Tasks tasks={tasks} onDelete={deleteTask}/> }
+            {loading ? <Loader /> : <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> }
           </>
         )} />
         <Route path='/about' component={About} />

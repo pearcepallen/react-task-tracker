@@ -12,6 +12,10 @@ import {
     TASK_DELETE_REQUEST,
     TASK_DELETE_SUCCESS,
     TASK_DELETE_FAIL,
+
+    TASK_TOGGLE_REMINDER_REQUEST,
+    TASK_TOGGLE_REMINDER_SUCCESS,
+    TASK_TOGGLE_REMINDER_FAIL,
 } from '../constants/taskConstants'
 
 
@@ -54,6 +58,22 @@ export const taskDeleteReducer = (state={}, action) => {
             return {loading:false, success:true}
 
         case TASK_DELETE_FAIL:
+            return {loading:false, error: action.payload}
+
+        default:
+            return state
+    }
+}
+
+export const taskToggleReminderReducer = (state={}, action) => {
+    switch(action.type){
+        case TASK_TOGGLE_REMINDER_REQUEST:
+            return {loading:true}
+
+        case TASK_TOGGLE_REMINDER_SUCCESS:
+            return {loading:false, success:true}
+
+        case TASK_TOGGLE_REMINDER_FAIL:
             return {loading:false, error: action.payload}
 
         default:
