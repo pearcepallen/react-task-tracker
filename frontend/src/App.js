@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
 import About from './components/About'
+import Login from './components/Login'
 import Loader from './components/Loader'
 import { listTasks, createTask } from './actions/taskActions'
 
@@ -111,6 +112,7 @@ const App = () => {
           </>
         )} />
         <Route path='/about' component={About} />
+        <Route path='/login' component={Login} />
         <Footer />
       </div>
     </Router>

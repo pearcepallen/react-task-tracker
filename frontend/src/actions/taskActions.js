@@ -21,15 +21,14 @@ export const createTask = (task) => async (dispatch, getState) => {
             type: TASK_CREATE_REQUEST
         })
 
-        // const { 
-        //     userLogin: {userInfo}
-        // } = getState()
+        const { 
+            userLogin: {userInfo}
+        } = getState()
 
         const config = {
             headers: {
                 'Content-type': 'application/json',
-                // Authorization: `Bearer ${userInfo.token}`
-                Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjIxNTQ3MjU2LCJqdGkiOiI2ZTUxNjc5MDk2NWM0OWQzOWY4NGNjODM2NzdjOWVkMSIsInVzZXJfaWQiOjF9._UNOEBpBsPo7FwTfzwUufL6qFUuGRB2f_Z1gcBWzf1A`,
+                Authorization: `Bearer ${userInfo.token}`
             }
         }
 
@@ -72,9 +71,9 @@ export const listTasks = () => async (dispatch, getState) => {
             type: TASK_LIST_REQUEST
         })
 
-        // const { 
-        //     userLogin: {userInfo},
-        // } = getState()
+        const { 
+            userLogin: {userInfo},
+        } = getState()
 
         const config = {
             headers: {
