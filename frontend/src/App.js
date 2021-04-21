@@ -9,7 +9,7 @@ import AddTask from './components/AddTask'
 import About from './components/About'
 import Login from './components/Login'
 import Loader from './components/Loader'
-import { listTasks, createTask } from './actions/taskActions'
+import { listTasks, createTask, taskDelete } from './actions/taskActions'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -99,6 +99,11 @@ const App = () => {
 
     setTasks(tasks.filter((task) => task.id !== id))
   }*/
+  const deleteTask = (id) => {
+    dispatch(taskDelete(id))  
+    
+    dispatch(listTasks())//may be a better way to refresh 
+  }
 
   return (
     <Router>
@@ -108,7 +113,7 @@ const App = () => {
           <>
             {showAddTask && <AddTask onAdd={addTask}/>}
             {/* {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No Tasks Available'} */}
-            {loading ? <Loader /> : <Tasks tasks={tasks} /> }
+            {loading ? <Loader /> : <Tasks tasks={tasks} onDelete={deleteTask}/> }
           </>
         )} />
         <Route path='/about' component={About} />
